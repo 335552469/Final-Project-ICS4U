@@ -1,4 +1,5 @@
 import pygame
+from math import gcd
 
 pygame.init()
 
@@ -8,21 +9,28 @@ class Player(object):
         self.name = name
         self.count = 0
         self.index = 0
+        self.count_speed = 1
+        
+        self.images = []
 
     def load_sprite_images(self, frames, file_location):
-        self.frames = frames
-        self.sprite_names = [f"{file_location}{i}.png" for i in range(frames)]
-        self.images = [pygame.image.load(i) for i in self.sprite_names]
+        image_list = [f"{file_location}{i}.png" for i in range(frames)]
+        print(image_list)
+        for i in image_list:
+            self.images.append(pygame.image.load(i))
 
-    def handle_animation(self, rate=10):
-        if self.index > self.frames-1:
+    def update(self, rate):
+        self.count += self.count_speed
+        if self.index > len(self.images)-1:
             self.index = 0
-        self.count += 1
-        if self.count >= rate:
+        self.image = self.images[self.index]
+        if self.count > rate:
             self.index += 1
             self.count = 0
 
-    def draw_animation(self, surface, x, y, frames, file_location, rate=10):
-        self.load_sprite_images(frames, file_location)
-        self.handle_animation()
-        surface.blit(self.images[self.index], (x, y))
+    def draw_animation(self, surface, x, y, scale, rate=10):
+        self.update(rate)
+        self.count_speed = 1
+        #print(self.image.get_width(), self.image.get_height())
+        bigger = pygame.transform.scale(self.image, (scale*(self.image.get_width()//gcd(self.image.get_width(), self.image.get_height())), scale*(self.image.get_height()//gcd(self.image.get_width(), self.image.get_height()))))
+        surface.blit(bigger, (x, y))

@@ -1,5 +1,5 @@
 import pygame, sys
-from Modules.Character_Modules import Player
+from Modules.Character_Modules.Player import Player
 
 pygame.init()
 run = True
@@ -14,15 +14,17 @@ screenY = info.current_h - 100
 pygame.display.set_caption(caption)
 surface = pygame.display.set_mode((screenX, screenY))
 
-mainCharacter = Player("General Bartholemu III")
-
-
 white = (255, 255, 255)
+
+mainCharacer = Player("Joshua Zive")
+mainCharacer.load_sprite_images(3, "Assets\\Characters\\Character_1\\Down\\")
+
+
 while run:
     surface.fill(white)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
             sys.exit() 
-    mainCharacter.draw_animation(surface, screenX//2, screenY//2, )
+    mainCharacer.draw_animation(surface, screenX//2, screenY//2, 50, 20)
     pygame.display.update()
