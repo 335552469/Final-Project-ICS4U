@@ -1,36 +1,39 @@
 import pygame
-from math import gcd
-
-pygame.init()
+from Modules.System_Modules.SpriteHandler import SpriteHandler
 
 class Player(object):
 
-    def __init__(self, name):
+    def __init__(self, name, x, y, scale):
         self.name = name
-        self.count = 0
+        self.x = x
+        self.y = y
+        self.scale = scale
+
+        self.speedX = 5
+        self.speedY = 5
+
         self.index = 0
-        self.count_speed = 1
-        
-        self.images = []
 
-    def load_sprite_images(self, frames, file_location):
-        image_list = [f"{file_location}{i}.png" for i in range(frames)]
-        print(image_list)
-        for i in image_list:
-            self.images.append(pygame.image.load(i))
+        directions = ["Up", "Down", "Right", "Left"]
+        self.sprite_directions = [SpriteHandler(f"Assets\\Characters\\Character_1\\{i}\\", 3) for i in directions]
 
-    def update(self, rate):
-        self.count += self.count_speed
-        if self.index > len(self.images)-1:
+    def walk(self, surface, dt):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_w]:
+            self.y -= self.speedY*dt
             self.index = 0
-        self.image = self.images[self.index]
-        if self.count > rate:
-            self.index += 1
-            self.count = 0
+        elif keys[pygame.K_s]:
+            self.y += self.speedY*dt
+            self.index = 1
+        elif keys[pygame.K_a]:
+            self.x -= self.speedX*dt
+            self.index = 3
+        elif keys[pygame.K_d]:
+            self.x += self.speedX*dt
+            self.index = 2
+        else:
+            self.sprite_directions[self.index].count_speed = 0
 
-    def draw_animation(self, surface, x, y, scale, rate=10):
-        self.update(rate)
-        self.count_speed = 1
-        #print(self.image.get_width(), self.image.get_height())
-        bigger = pygame.transform.scale(self.image, (scale*(self.image.get_width()//gcd(self.image.get_width(), self.image.get_height())), scale*(self.image.get_height()//gcd(self.image.get_width(), self.image.get_height()))))
-        surface.blit(bigger, (x, y))
+        self.sprite_directions[self.index].animate(surface, self.x, self.y, self.scale, 70)
+
+        
