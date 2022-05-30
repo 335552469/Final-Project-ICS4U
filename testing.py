@@ -1,4 +1,3 @@
-text = "Hello my name is \nJosh"
-lines = text.split('\n')
+from playsound import playsound
 
-print(lines)
+playsound("")
