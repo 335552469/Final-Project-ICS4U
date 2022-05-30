@@ -24,7 +24,7 @@ background_color = (0, 0, 0)
 # Main Character Class
 mc = Player("Test Player", screenX//2, screenY//2, 25)
 
-text = TypeWriter("Hello My name is \n Josh", 
+text = TypeWriter("Hello My name is \nJosh", 
                      32, 'Comic Sans MS', (0, 0, 0))
 
 

@@ -5,13 +5,8 @@ class TypeWriter(object):
     def __init__(self, text, size, font, colour):
         
         self.text = text
-        self.line = ""
-        
-        for i in self.text:
-            if i == '\n':
-                break
-            self.line += i
-        
+        self.lines = self.text.split('\n')
+
         self.empty_text = ""
 
         self.size = size
