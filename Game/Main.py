@@ -11,7 +11,7 @@ caption = "Indie.exe"
 info = pygame.display.Info() # finds info about the CURRENT DISPLAY BEING USED
 # Note: We must make EVERY value in the game proportional to the display size NOT!!! the screen size
 screenX = 1500
-screenY = 800
+screenY = 700
 
 pygame.display.set_caption(caption)
 surface = pygame.display.set_mode((screenX, screenY))
@@ -24,8 +24,8 @@ background_color = (0, 0, 0)
 # Main Character Class
 mc = Player("Test Player", screenX//2, screenY//2, 25)
 
-text = TypeWriter("Hello My name is \nJosh", 
-                     32, 'Comic Sans MS', (0, 0, 0))
+text = TypeWriter("Hello My name is Josh nice to meet you. \nThis is the game called indie.exe. \nThis game will be my final Game. \nThis is a test to see if the typewriter class works:) \nHere is one last test to check if the typewriter class works", 
+                  24, 'Assets\\Fonts\\Volter__28Goldfish_29.ttf', (255, 255, 255), 0, 0)
 
 
 while run:
@@ -40,6 +40,6 @@ while run:
         if event.type == pygame.QUIT:
             run = False
             sys.exit() 
-    #text.createTextbox(surface, (0, 0, 0), (255, 255, 255), (50, screenY//2, 1400, 200), 5)
-    print(text.line)
+    # text.createTextbox(surface, (0, 0, 0), (255, 255, 255), (50, screenY//2, 1400, 200), 5)
+    text.type(surface)
     pygame.display.update()
