@@ -1,5 +1,6 @@
 import pygame, sys, time
 from Modules.Character_Modules.Player import Player
+from Modules.System_Modules.TypeWriter import TypeWriter
 
 pygame.init()
 run = True
@@ -17,12 +18,15 @@ surface = pygame.display.set_mode((screenX, screenY))
 main_clock = pygame.time.Clock()
 frames_per_second = 60
 last_time = time.time()
-
 # Background Colour 
-white = (255, 255, 255)
+background_color = (0, 0, 0)
 
 # Main Character Class
 mc = Player("Test Player", screenX//2, screenY//2, 25)
+
+text = TypeWriter("Hello My name is \n Josh", 
+                     32, 'Comic Sans MS', (0, 0, 0))
+
 
 while run:
 
@@ -31,10 +35,11 @@ while run:
     last_time = time.time()
 
 
-    surface.fill(white)
+    surface.fill(background_color)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
             sys.exit() 
-
+    #text.createTextbox(surface, (0, 0, 0), (255, 255, 255), (50, screenY//2, 1400, 200), 5)
+    print(text.line)
     pygame.display.update()
