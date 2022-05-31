@@ -5,6 +5,9 @@ from Modules.System_Modules.TypeWriter import TypeWriter
 pygame.init()
 run = True
 
+pygame.mixer.init()
+sound = pygame.mixer.Sound("Assets\\Audio\\Menue_Theme.wav")
+
 # Window Name
 caption = "Indie.exe"
 
