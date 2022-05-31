@@ -1,4 +1,3 @@
-text = "Hello my name is \nJosh"
-lines = text.split('\n')
+import pygame, os
+pygame.mixer.init()
 
-print(lines)

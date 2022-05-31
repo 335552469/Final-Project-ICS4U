@@ -1,45 +1,52 @@
-import pygame, sys, time
+from xml.etree.ElementTree import TreeBuilder
+import pygame, sys, time, os
 from Modules.Character_Modules.Player import Player
 from Modules.System_Modules.TypeWriter import TypeWriter
 
+pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
+
 run = True
+path = os.getcwd()
 
 # Window Name
 caption = "Indie.exe"
 
 info = pygame.display.Info() # finds info about the CURRENT DISPLAY BEING USED
-# Note: We must make EVERY value in the game proportional to the display size NOT!!! the screen size
+# Note: We will edit the code so we can have the game work for any screen size
+
 screenX = 1500
 screenY = 700
 
 pygame.display.set_caption(caption)
 surface = pygame.display.set_mode((screenX, screenY))
 main_clock = pygame.time.Clock()
-frames_per_second = 60
+frames_per_second = 144
 last_time = time.time()
 # Background Colour 
 background_color = (0, 0, 0)
 
-# Main Character Class
+# Main Character Classa
 mc = Player("Test Player", screenX//2, screenY//2, 25)
 
-text = TypeWriter("Hello My name is Josh nice to meet you. \nThis is the game called indie.exe. \nThis game will be my final Game. \nThis is a test to see if the typewriter class works:) \nHere is one last test to check if the typewriter class works", 
-                  24, 'Assets\\Fonts\\Volter__28Goldfish_29.ttf', (255, 255, 255), 0, 0)
-
-
+# Opening Scene Variables --> WILL BE MOVED TO A MODULE IN THE SCENE MODULE FOLDER. THIS IS ONLY HERE FOR TESTING
+#surface2 = pygame.Surface((screenX, screenY))
+ominous_text = TypeWriter("You are not supposed to be here... \nThis place is not meant for you... \n             Please... \n        Turn back now...", 32, "Assets\\Fonts\\Volter__28Goldfish_29.ttf", (255, 255, 255), 400, (screenY//2)-50)
+surface2 = pygame.Surface((screenX, screenY))
 while run:
+
 
     dt = time.time() - last_time
     dt*=frames_per_second
     last_time = time.time()
 
-
     surface.fill(background_color)
+    surface2.fill((0, 0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
             sys.exit() 
-    # text.createTextbox(surface, (0, 0, 0), (255, 255, 255), (50, screenY//2, 1400, 200), 5)
-    text.type(surface)
+
+    ominous_text.type(surface2, 30)
+    surface.blit(surface2, (0, 0))
     pygame.display.update()
