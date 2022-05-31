@@ -9,6 +9,9 @@ pygame.init()
 run = True
 path = os.getcwd()
 
+pygame.mixer.init()
+sound = pygame.mixer.Sound("Assets\\Audio\\Menue_Theme.wav")
+
 # Window Name
 caption = "Indie.exe"
 
