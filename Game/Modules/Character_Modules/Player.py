@@ -18,7 +18,7 @@ class Player(object):
         self.index = 0
 
         directions = ["Up", "Down", "Right", "Left"]
-        self.sprite_directions = [SpriteHandler(f"Assets\\Characters\\Character_1\\{i}\\", 3) for i in directions]
+        self.sprite_directions = [SpriteHandler(f"Assets\\Characters\\Character_1\\{i}\\", 3, "png") for i in directions]
 
     def walk(self, surface, dt):
         keys = pygame.key.get_pressed()

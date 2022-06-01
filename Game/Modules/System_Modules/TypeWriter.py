@@ -1,5 +1,6 @@
 import pygame
 from pygame import gfxdraw
+from Modules.System_Modules.SoundHandler import SoundHandler
 
 
 # This class writes lines of text in order depending on where the \n values exist within the text
@@ -21,6 +22,8 @@ class TypeWriter(object):
 
         # font variables
         self.font = pygame.font.Font(font, self.size)
+
+        self.type_sound = SoundHandler("Assets\\Audio\\type_sound.wav", 2, False)
 
         # Text Bools
         self.text_written = False # Checks if a line is written
@@ -63,7 +66,6 @@ class TypeWriter(object):
                 self.y[self.line_index] += self.space
                 self.space += (self.size + 10)
                 self.text_written = False
-        print(self.space)
 
         if self.line_index == len(self.lines)-1 and len(self.empty_text[self.line_index]) == len(self.lines[-1]):
             self.finish = True
