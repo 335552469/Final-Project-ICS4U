@@ -1,1 +1,2 @@
-from Modules.System_Modules.SoundHandler import SoundHandler
+screenX = 1500
+screenY = 700
