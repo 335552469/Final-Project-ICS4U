@@ -1,4 +1,3 @@
-import imp
 from Modules.System_Modules.SoundHandler import SoundHandler
 from Modules.System_Modules.TypeWriter import TypeWriter
 from Modules.System_Modules.SpriteHandler import SpriteHandler
@@ -7,7 +6,9 @@ import pygame
 
 class Scene_1(object):
 
-    def __init__(self):
+
+    def __init__(self, camera):
+        self.camera = camera
         self.screenX = 1500
         self.screenY = 700
 
@@ -17,18 +18,20 @@ class Scene_1(object):
         self.ominous_text = TypeWriter("You are not supposed to be here... \nThis place is not meant for you... \n             Please... \n        Turn back now...", 32, "Assets\\Fonts\\Volter__28Goldfish_29.ttf", (255, 255, 255), 400, (self.screenY//2)-50)
         self.ominous_text_bool = True
         self.Opening_Glitch_Surface = pygame.Surface((self.screenX, self.screenY))
-        self.glitch = SpriteHandler(f"Assets\\Animations\\Glitch_Sprite\\", 10, "png")
+        self.gx = 0
+        self.gy = 0
+        self.glitch = SpriteHandler(self.gx, self.gy, "Assets\\Animations\\Glitch_Sprite\\", 10, "png", camera)
         self.opening_glitch_bool = True
         self.opening_glitch_sound = SoundHandler("Assets\\Audio\\Opening_Cinematic_Glitch.wav", 1)
 
         self.opening_cinematic_bool = False
         self.opening_cinematic = pygame.Surface((self.screenX, self.screenY))
-        self.castle_background = SpriteHandler("Assets\\Animations\\Castle_Background\\", 22, "png")
-        self.castleX, self.castleY = 0, -300
-        self.castleSpeedX, self.castleSpeedY = 0.7, 0.4
+        self.castle_background = SpriteHandler(0, -300, "Assets\\Animations\\Castle_Background\\", 22, "png", camera)
+        self.speedX, self.speedY = 0.1, 0.06
+        self.desert_backgroud = SpriteHandler(1900, -500, "Assets\\Animations\\Caped_Hero_Background\\", 20, "png", camera)
 
-        self.hero_sillouhette = SpriteHandler("Assets\\Animations\\Caped_Hero_Sillouhette\\", 4, "png")
-
+        self.introduction2_sound = SoundHandler("Assets\\Audio\\Introduction_Audio\\Introduction_2.wav", 2)
+        self.intro_counter = 0
     def draw(self, surface):
 
         self.Opening_Glitch_Surface.fill((0, 0, 0))
@@ -39,7 +42,7 @@ class Scene_1(object):
 
         if self.ominous_text.finish == True:
             self.ominous_text_bool = False
-            self.glitch.animate(self.Opening_Glitch_Surface, 0, 0, 100, 10, False)
+            self.glitch.animate(self.Opening_Glitch_Surface, 100, 10, False)
             self.opening_glitch_sound.play()
             if self.glitch.isBlit == False:
                 self.opening_glitch_bool = False
@@ -48,12 +51,23 @@ class Scene_1(object):
         if self.opening_glitch_bool == True:
             surface.blit(self.Opening_Glitch_Surface, (0, 0))
         elif self.opening_cinematic_bool == True:
-            self.castle_background.animate(self.opening_cinematic, self.castleX, self.castleY, 1000, 35)
-            # self.hero_sillouhette.animate(self.opening_cinematic, 0, 0, 500, 20)
-            surface.blit(self.opening_cinematic, (0, 0))
-            self.castleX -= 0.07
-            self.castleY += 0.04
-            self.title_music.play(0.3)
-            self.introduction_sound.play()
+            self.title_music.play(0.2)
+            self.introduction_sound.play(0.5)
+            self.desert_backgroud.animate(self.opening_cinematic, 200, 20)
+            #self.hero_sillouhette.animate(self.opening_cinematic, 100, 20)
+            self.castle_background.animate(self.opening_cinematic, 1000,  20)
+            self.camera.moveX(self.speedX)
+            self.camera.moveY(-self.speedY)
             if self.introduction_sound.channel.get_busy() == False:
-                pass
+                self.intro_counter += 1
+                self.speedY = 0
+                self.speedX = 0.75
+                self.introduction2_sound.play(2)
+                if self.intro_counter == 760:
+                    self.title_music.channel.fadeout(4000)
+
+                if self.introduction2_sound.channel.get_busy() == False:
+                    self.speedX = 0
+                    self.speedY = 0
+                    self.glitch.animate(self.Opening_Glitch_Surface, 100, 10, False)
+            surface.blit(self.opening_cinematic, (0, 0))

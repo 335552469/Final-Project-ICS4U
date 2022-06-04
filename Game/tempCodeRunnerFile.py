@@ -1,2 +1,1 @@
-screenX = 1500
-screenY = 700
+cam = Camera(0, 0)

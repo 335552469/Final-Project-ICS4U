@@ -63,7 +63,7 @@ class TypeWriter(object):
                     self.index += 1 # Goes to the next letter
                     self.count = 0 # Resets counter
             else: # When a line is finished 
-                pygame.time.delay(delay) # Optional delay
+                #pygame.time.delay(delay) # Optional delay
 
                 # Resets the values for the next line
                 self.index = 0 

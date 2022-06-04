@@ -1,6 +1,7 @@
 import pygame, sys, time, os
 from Modules.Character_Modules.Player import Player
 from Modules.Scene_Modules.Opening_Sequence import Scene_1
+from Modules.System_Modules.CameraClass import Camera
 
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
@@ -27,12 +28,14 @@ last_time = time.time()
 # Background Colour 
 background_color = (0, 0, 0)
 
+# Cameras
+cam = Camera(0, 0)
+
 # Main Character Classa
-mc = Player("Test Player", screenX//2, screenY//2, 25)
+mc = Player("Test Player", screenX//2, screenY//2, 25, cam)
 
 # Scenes
-scene_1 = Scene_1()
-
+scene_1 = Scene_1(cam)
 while run:
 
     # Framerate independance 
@@ -47,4 +50,5 @@ while run:
             run = False
             sys.exit() 
     scene_1.draw(surface)
+
     pygame.display.update()

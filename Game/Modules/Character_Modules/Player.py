@@ -4,13 +4,14 @@ from Modules.System_Modules.SpriteHandler import SpriteHandler
 # This class is specifically used to modify the abilities of the player/main character
 class Player(object):
 
-    def __init__(self, name, x, y, scale):
+    def __init__(self, name, x, y, scale, camera):
 
         # characteristics
         self.name = name # character name
         self.x = x # x position
         self.y = y # y position
         self.scale = scale # size
+        self.camera = camera
 
         # Hit box values
         self.hit_boxW = 50
@@ -27,7 +28,7 @@ class Player(object):
         directions = ["Up", "Down", "Right", "Left"]
         
         # different sprite animations for different directions placed into a list
-        self.sprite_directions = [SpriteHandler(f"Assets\\Characters\\Character_1\\{i}\\", 3, "png") for i in directions]
+        self.sprite_directions = [SpriteHandler(self.x, self.y, f"Assets\\Characters\\Character_1\\{i}\\", 3, "png", camera) for i in directions]
 
     # Method used to handle whether the player is walking
     def walk(self, surface, dt): # takes in surface and delta time so we can have walking movement be independant of the framerate
