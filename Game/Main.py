@@ -52,6 +52,5 @@ while run:
             sys.exit() 
     scene_1.draw(surface, dt)
     if scene_1.scene_finished == True:
-        print("IS HAPPENING")
         map_1.draw_character(surface, dt)
     pygame.display.update()

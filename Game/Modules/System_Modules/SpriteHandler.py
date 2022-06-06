@@ -4,6 +4,20 @@ from Modules.System_Modules.CameraClass import Camera
 
 pygame.init()
 
+class Image_Handler(object):
+    
+    def __init__(self, x, y, scale, fileDestination, fileType, camera):
+        self.fileDestination = fileDestination
+        self.camera = camera
+        self.scale = scale
+        self.fileType = fileType
+        self.x = x
+        self.y = y
+        self.coords = [self.x, self.y]
+        camera.obj.append(self.coords)
+
+        self.img = 
+
 # This class will be used to handle all in game sprites and animations
 class SpriteHandler(object):
 
@@ -13,6 +27,7 @@ class SpriteHandler(object):
         self.fileDestination = fileDestination # where the sprite is in your computer
         self.frames = frames # How many frames does that animation have
         self.fileType = fileType # png/jpg etc...
+
         self.image_names = [f"{fileDestination}{i}.{fileType}" for i in range(frames)] # Stores the file locations of each frame
         self.images = [pygame.image.load(i) for i in self.image_names] # Stores the loaded frames
 
@@ -26,9 +41,7 @@ class SpriteHandler(object):
         self.y = y
         self.coords = [self.x, self.y]
         camera.obj.append(self.coords)
-        self.static_image = pygame.image.load(f"{fileDestination}0.{fileType}")
 
-    
     # Method to update the sprite
     def update(self, rate, show): # rate is how fast does the animation move to the next frame
         self.count += 1 # counter starts 
@@ -55,11 +68,4 @@ class SpriteHandler(object):
         if self.isBlit == True:
             surface.blit(bigger, (self.coords[0], self.coords[1]))
 
-    # draws static images
-    def draw(self, surface, scale):
-        # Rescales the image
-        bigger = pygame.transform.scale(self.static_image, (scale*(self.static_image.get_width()//gcd(self.static_image.get_width(), 
-                                        self.static_image.get_height())), scale*(self.static_image.get_height()//gcd(self.static_image.get_width(), 
-                                        self.static_image.get_height()))))
-        surface.blit(bigger, (self.coords[0], self.coords[1]))
 
