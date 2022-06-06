@@ -1,1 +1,1 @@
-cam = Camera(0, 0)
+t_

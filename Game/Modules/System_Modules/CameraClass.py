@@ -5,12 +5,12 @@ class Camera(object):
 
         self.obj = []
 
-    def moveX(self, speed):
+    def moveX(self, speed, dt):
         self.x += speed
         for i in self.obj:
-            i[0] -= speed
+            i[0] -= speed*dt
 
-    def moveY(self, speed):
+    def moveY(self, speed, dt):
         self.y += speed
         for i in self.obj:
-            i[1] -= speed
+            i[1] -= speed*dt

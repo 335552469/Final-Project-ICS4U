@@ -22,7 +22,9 @@ class SpriteHandler(object):
         self.isBlit = True # isBlit
 
         self.camera = camera
-        self.coords = [x, y]
+        self.x = x
+        self.y = y
+        self.coords = [self.x, self.y]
         camera.obj.append(self.coords)
 
     
@@ -40,7 +42,7 @@ class SpriteHandler(object):
             self.index += 1
             self.count = 0
 
-    # Draws the animation to the screen
+    # Draws the animation to the screenc
     def animate(self, surface, scale, rate=10, show=True):
         self.update(rate, show) # runs the update function
 
@@ -48,7 +50,6 @@ class SpriteHandler(object):
         bigger = pygame.transform.scale(self.image, (scale*(self.image.get_width()//gcd(self.image.get_width(), 
                                         self.image.get_height())), scale*(self.image.get_height()//gcd(self.image.get_width(), 
                                         self.image.get_height()))))
-        
         # Draws the animation
         if self.isBlit == True:
             surface.blit(bigger, (self.coords[0], self.coords[1]))

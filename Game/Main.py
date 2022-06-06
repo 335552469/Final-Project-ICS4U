@@ -2,6 +2,7 @@ import pygame, sys, time, os
 from Modules.Character_Modules.Player import Player
 from Modules.Scene_Modules.Opening_Sequence import Scene_1
 from Modules.System_Modules.CameraClass import Camera
+from Modules.Scene_Modules.Game_Scene_1 import Map
 
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
@@ -29,15 +30,16 @@ last_time = time.time()
 background_color = (0, 0, 0)
 
 # Cameras
-cam = Camera(0, 0)
-
-# Main Character Classa
-mc = Player("Test Player", screenX//2, screenY//2, 25, cam)
+scene_cam = Camera(0, 0)
+game_cam = Camera(0, 0)
 
 # Scenes
-scene_1 = Scene_1(cam)
-while run:
+scene_1 = Scene_1(scene_cam)
 
+mc = Player("Hero", 0, 0, 25, game_cam)
+#scene_1.scene_finished = True
+
+while run:
     # Framerate independance 
     dt = time.time() - last_time
     dt *= frames_per_second
@@ -49,6 +51,8 @@ while run:
         if event.type == pygame.QUIT:
             run = False
             sys.exit() 
-    scene_1.draw(surface)
-
+    scene_1.draw(surface, dt)
+    if scene_1.scene_finished == True:
+        print("IS HAPPENING")
+        mc.walk(surface, dt)
     pygame.display.update()
