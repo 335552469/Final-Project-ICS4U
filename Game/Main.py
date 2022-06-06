@@ -35,9 +35,8 @@ game_cam = Camera(0, 0)
 
 # Scenes
 scene_1 = Scene_1(scene_cam)
-
-mc = Player("Hero", 0, 0, 25, game_cam)
-#scene_1.scene_finished = True
+scene_1.scene_finished = True
+map_1 = Map(game_cam, "Assets\\Maps\\", "png")
 
 while run:
     # Framerate independance 
@@ -54,5 +53,5 @@ while run:
     scene_1.draw(surface, dt)
     if scene_1.scene_finished == True:
         print("IS HAPPENING")
-        mc.walk(surface, dt)
+        map_1.draw_character(surface, dt)
     pygame.display.update()

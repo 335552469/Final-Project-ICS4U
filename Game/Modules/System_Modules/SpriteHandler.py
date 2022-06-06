@@ -26,6 +26,7 @@ class SpriteHandler(object):
         self.y = y
         self.coords = [self.x, self.y]
         camera.obj.append(self.coords)
+        self.static_image = pygame.image.load(f"{fileDestination}0.{fileType}")
 
     
     # Method to update the sprite
@@ -55,6 +56,10 @@ class SpriteHandler(object):
             surface.blit(bigger, (self.coords[0], self.coords[1]))
 
     # draws static images
-    def draw(self):
-        pass
+    def draw(self, surface, scale):
+        # Rescales the image
+        bigger = pygame.transform.scale(self.static_image, (scale*(self.static_image.get_width()//gcd(self.static_image.get_width(), 
+                                        self.static_image.get_height())), scale*(self.static_image.get_height()//gcd(self.static_image.get_width(), 
+                                        self.static_image.get_height()))))
+        surface.blit(bigger, (self.coords[0], self.coords[1]))
 
