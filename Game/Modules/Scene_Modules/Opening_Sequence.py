@@ -21,17 +21,17 @@ class Scene_1(object):
         self.Opening_Glitch_Surface = pygame.Surface((self.screenX, self.screenY))
         self.gx = 0
         self.gy = 0
-        self.glitch = SpriteHandler(self.gx, self.gy, "Assets\\Animations\\Glitch_Sprite\\", 10, "png", camera)
+        self.glitch = SpriteHandler(self.gx, self.gy, 100, "Assets\\Animations\\Glitch_Sprite\\", 10, "png", camera)
         self.opening_glitch_bool = False
         self.opening_glitch_sound = SoundHandler("Assets\\Audio\\Opening_Cinematic_Glitch.wav", 3)
 
         self.opening_cinematic_bool = False
         self.opening_cinematic = pygame.Surface((self.screenX, self.screenY))
-        self.castle_background = SpriteHandler(0, -300, "Assets\\Animations\\Castle_Background\\", 22, "png", camera)
+        self.castle_background = SpriteHandler(0, -300, 1000, "Assets\\Animations\\Castle_Background\\", 22, "png", camera)
         self.speedX, self.speedY = 0.075, 0.04
-        self.desert_backgroud = SpriteHandler(1900, -400, "Assets\\Animations\\Caped_Hero_Background\\", 20, "png", camera)
-        self.glitch2 = SpriteHandler(1900, -400, "Assets\\Animations\\Glitch_Sprite\\", 10, "png", camera)
-
+        self.desert_backgroud = SpriteHandler(1900, -400, 200, "Assets\\Animations\\Caped_Hero_Background\\", 20, "png", camera)
+        self.glitch2 = SpriteHandler(1800, -400, 100, "Assets\\Animations\\Glitch_Sprite\\", 10, "png", camera)
+        self.opening_glitch2_sound = SoundHandler("Assets\\Audio\\Opening_Cinematic_Glitch.wav", 3)
         self.introduction2_sound = SoundHandler("Assets\\Audio\\Introduction_Audio\\Introduction_2.wav", 2)
         self.intro_counter = 0
 
@@ -49,7 +49,7 @@ class Scene_1(object):
                     self.opening_glitch_bool = True
                     
             if self.opening_glitch_bool == True:
-                self.glitch.animate(self.Opening_Glitch_Surface, 100, 10, False)
+                self.glitch.animate(self.Opening_Glitch_Surface, 10, False)
                 surface.blit(self.Opening_Glitch_Surface, (0, 0))
                 self.opening_glitch_sound.play()
                 if self.glitch.isBlit == False:
@@ -59,8 +59,8 @@ class Scene_1(object):
             elif self.opening_cinematic_bool == True:
                 self.title_music.play(0.2)
                 self.introduction_sound.play(0.5)
-                self.desert_backgroud.animate(self.opening_cinematic, 200, 20)
-                self.castle_background.animate(self.opening_cinematic, 1000,  20)
+                self.desert_backgroud.animate(self.opening_cinematic, 20)
+                self.castle_background.animate(self.opening_cinematic,  20)
                 self.camera.moveX(self.speedX, dt)
                 self.camera.moveY(-self.speedY, dt)
                 if self.introduction_sound.channel.get_busy() == False:
@@ -69,13 +69,13 @@ class Scene_1(object):
                     self.speedX = 0.45
                     self.introduction2_sound.play(2)
                     if self.intro_counter == 760:
-                        self.title_music.channel.fadeout(8000)
+                        self.title_music.channel.fadeout(9000)
 
                     if self.introduction2_sound.channel.get_busy() == False:
                         self.speedX = 0
                         self.speedY = 0
-                        self.glitch2.animate(self.opening_cinematic, 100, 10, False)
-                        self.opening_glitch_sound.play()
+                        self.glitch2.animate(self.opening_cinematic, 5, False)
+                        self.opening_glitch2_sound.play()
                         if self.glitch2.isBlit == False:
                             self.scene_finished = True
                 
