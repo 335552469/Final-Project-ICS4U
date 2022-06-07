@@ -48,8 +48,8 @@ class SpriteHandler(Image):
         self.camera.obj.append(self.coords)
 
     # Method to update the sprite
-    def update(self, rate, show): # rate is how fast does the animation move to the next frame
-        self.count += 1 # counter starts 
+    def update(self, rate, dt, show): # rate is how fast does the animation move to the next frame
+        self.count += 1*dt # counter starts 
         
         # keeps the index looping
         if self.index > len(self.images)-1:
@@ -62,8 +62,8 @@ class SpriteHandler(Image):
             self.count = 0
 
     # Draws the animation to the screenc
-    def animate(self, surface, rate=10, show=True):
-        self.update(rate, show) # runs the update function
+    def animate(self, surface, dt, rate=10, show=True):
+        self.update(rate, dt, show) # runs the update function
 
         # Rescales the image
         bigger = pygame.transform.scale(self.image, (self.scale*(self.image.get_width()//gcd(self.image.get_width(), 

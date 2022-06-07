@@ -1,6 +1,6 @@
 import pygame
 from pygame import gfxdraw
-from Game.Modules.System_Modules.SoundHandler import SoundHandler
+from Modules.System_Modules.SoundHandler import SoundHandler
 
 
 # This class writes lines of text in order depending on where the \n values exist within the text
