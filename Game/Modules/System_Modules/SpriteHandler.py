@@ -1,6 +1,6 @@
 import pygame
 from math import gcd
-from Modules.System_Modules.CameraClass import Camera
+from Game.Modules.System_Modules.CameraClass import Camera
 
 pygame.init()
 
@@ -42,7 +42,7 @@ class SpriteHandler(object):
             self.index += 1
             self.count = 0
 
-    # Draws the animation to the screenc
+    # Draws the animation to the screen
     def animate(self, surface, scale, rate=10, show=True):
         self.update(rate, show) # runs the update function
 
