@@ -36,7 +36,9 @@ game_cam = Camera(0, 0)
 # Scenes
 scene_1 = Scene_1(scene_cam)
 scene_1.scene_finished = True
-map_1 = Map(game_cam, "Assets\\Maps\\", "png")
+
+mc = Player("Hero", screenX//2, screenY//2, 30, game_cam)
+map_1 = Map(game_cam, ["Assets\\Maps\\main_map", "Assets\\Maps\\buildings"], "png", mc)
 
 while run:
     # Framerate independance 
@@ -45,6 +47,7 @@ while run:
     last_time = time.time()
 
     surface.fill(background_color)
+    print(game_cam.obj)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -52,5 +55,5 @@ while run:
             sys.exit() 
     scene_1.draw(surface, dt)
     if scene_1.scene_finished == True:
-        map_1.draw_character(surface, dt)
+        map_1.draw(surface, dt)
     pygame.display.update()

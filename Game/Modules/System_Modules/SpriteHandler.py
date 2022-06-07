@@ -4,31 +4,39 @@ from Modules.System_Modules.CameraClass import Camera
 
 pygame.init()
 
-class Image_Handler(object):
-    
+class Image(object):
     def __init__(self, x, y, scale, fileDestination, fileType, camera):
-        self.fileDestination = fileDestination
-        self.camera = camera
-        self.scale = scale
-        self.fileType = fileType
         self.x = x
         self.y = y
-        self.coords = [self.x, self.y]
-        camera.obj.append(self.coords)
+        self.fileDestination = fileDestination
+        self.scale = scale
+        self.fileType = fileType
+        self.camera = camera
 
-        self.img = 
+class ImageHandler(Image):
+    
+    def __init__(self, x, y, scale, fileDestination, fileType, camera):
+        super().__init__(x, y, scale, fileDestination, fileType, camera)
+        self.coords = [self.x, self.y]
+        self.camera.obj.append(self.coords)
+
+        self.image = pygame.image.load(f"{fileDestination}.{fileType}")
+        self.bigger = pygame.transform.scale(self.image, (self.scale*(self.image.get_width()//gcd(self.image.get_width(), 
+                                        self.image.get_height())), self.scale*(self.image.get_height()//gcd(self.image.get_width(), 
+                                        self.image.get_height()))))
+
+    def blit(self, surface):
+        surface.blit(self.bigger, (self.coords[0], self.coords[1]))
+        
 
 # This class will be used to handle all in game sprites and animations
-class SpriteHandler(object):
+class SpriteHandler(Image):
 
-    def __init__(self, x, y, fileDestination, frames, fileType, camera=None):
-    
+    def __init__(self, x, y, scale, fileDestination, frames, fileType, camera=None):
+        super().__init__(x, y, scale, fileDestination, fileType, camera)
         # File Variables
-        self.fileDestination = fileDestination # where the sprite is in your computer
         self.frames = frames # How many frames does that animation have
-        self.fileType = fileType # png/jpg etc...
-
-        self.image_names = [f"{fileDestination}{i}.{fileType}" for i in range(frames)] # Stores the file locations of each frame
+        self.image_names = [f"{self.fileDestination}{i}.{self.fileType}" for i in range(self.frames)] # Stores the file locations of each frame
         self.images = [pygame.image.load(i) for i in self.image_names] # Stores the loaded frames
 
         # Update Variables
@@ -36,11 +44,8 @@ class SpriteHandler(object):
         self.index = 0 # Sprite index
         self.isBlit = True # isBlit
 
-        self.camera = camera
-        self.x = x
-        self.y = y
         self.coords = [self.x, self.y]
-        camera.obj.append(self.coords)
+        self.camera.obj.append(self.coords)
 
     # Method to update the sprite
     def update(self, rate, show): # rate is how fast does the animation move to the next frame
@@ -57,12 +62,12 @@ class SpriteHandler(object):
             self.count = 0
 
     # Draws the animation to the screenc
-    def animate(self, surface, scale, rate=10, show=True):
+    def animate(self, surface, rate=10, show=True):
         self.update(rate, show) # runs the update function
 
         # Rescales the image
-        bigger = pygame.transform.scale(self.image, (scale*(self.image.get_width()//gcd(self.image.get_width(), 
-                                        self.image.get_height())), scale*(self.image.get_height()//gcd(self.image.get_width(), 
+        bigger = pygame.transform.scale(self.image, (self.scale*(self.image.get_width()//gcd(self.image.get_width(), 
+                                        self.image.get_height())), self.scale*(self.image.get_height()//gcd(self.image.get_width(), 
                                         self.image.get_height()))))
         # Draws the animation
         if self.isBlit == True:
