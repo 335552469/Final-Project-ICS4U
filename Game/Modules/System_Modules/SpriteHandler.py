@@ -1,6 +1,6 @@
 import pygame
 from math import gcd
-from Modules.System_Modules.CameraClass import Camera
+from Game.Modules.System_Modules.CameraClass import Camera
 
 pygame.init()
 

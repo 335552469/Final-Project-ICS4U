@@ -1,5 +1,5 @@
 import pygame
-from Modules.System_Modules.SpriteHandler import SpriteHandler
+from Game.Modules.System_Modules.SpriteHandler import SpriteHandler
 
 # This class is specifically used to modify the abilities of the player/main character
 class Player(object):

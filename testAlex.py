@@ -86,28 +86,41 @@ class NPC(object):
         self.interactNum = interactNum
 
         self.npcImage = ImageHandler(300, 250, 25, f"Assets\\Characters\\Character_2\\{filename}", filetype, camera)
+        self.arrowX = -5
+        self.arrow = ImageHandler(self.arrowX, 315, 110, f"Assets\\textBox\\smallArrow", "png", camera)
 
         self.hit_boxW = 50
         self.hit_boxH = 75
 
-        self.callBool = False
-        self.responceBool = False
+        self.arrowBool = False
         self.check = False
+        self.num = 0
         
-        self.respond = list(text.keys())[0]
+        self.respond = list(text.keys())[self.num]
         self.words = TypeWriter(text[self.respond], 15, f"Assets\\Fonts\\Volter__28Goldfish_29.ttf", (255, 255, 255), 25, 315)
-        self.ans = TypeWriter(list(text.keys())[1] + "\n" + list(text.keys())[2], 15, f"Assets\\Fonts\\Volter__28Goldfish_29.ttf", (255, 255, 255), 25, 315)
+        self.ans = TypeWriter(list(text.keys())[1] + "                          " + list(text.keys())[2], 30, f"Assets\\Fonts\\Volter__28Goldfish_29.ttf", (255, 255, 255), 25, 315)
 
     def draw(self, surface):
         self.npcImage.blit(surface)
 
     def call(self, surface):
         self.words.createTextbox(surface, (0, 0, 0), (0, 0, 255), (0, 300, 600, 150))
-        self.words.type(surface, rate=15)
+        self.words.type(surface, rate=20)
 
     def responce(self, surface):
         self.ans.createTextbox(surface, (0, 0, 0), (0, 0, 255), (0, 300, 600, 150))
-        self.ans.type(surface, rate=15)
+        self.ans.type(surface, rate=0)
+        self.arrow.blit(surface)
+
+        if keyboard.is_pressed("a"):
+            self.arrowBool = True
+        if keyboard.is_pressed("d"):
+            self.arrowBool = False
+
+        if self.arrowBool is True:
+            self.arrowX = -3
+        if self.arrowBool is False:
+            self.arrowX = 485
     
     def interaction(self, surface):
         player.speedX = 0
@@ -116,15 +129,12 @@ class NPC(object):
         player.sprite_directions[player.index].index = 1 # The sprite animation stops at the static sprite
         if keyboard.is_pressed("Enter"):
             self.check = True
-        if self.callBool is True:
+        if self.check is False:
             self.call(surface)
-        if self.responceBool is True:
+        if self.check is True:
             self.responce(surface)
         
-        for i in range(self.interactNum):
-            self.call(surface)
-            if self.check:
-                self.responce(surface)
+
             
 
 gameCam = Camera(0, 0)
