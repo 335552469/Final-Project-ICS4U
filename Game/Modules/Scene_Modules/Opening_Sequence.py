@@ -59,8 +59,8 @@ class Scene_1(object):
             elif self.opening_cinematic_bool == True:
                 self.title_music.play(0.2)
                 self.introduction_sound.play(0.5)
-                self.desert_backgroud.animate(self.opening_cinematic, 20)
-                self.castle_background.animate(self.opening_cinematic,  20)
+                self.desert_backgroud.animate(self.opening_cinematic, dt, 20)
+                self.castle_background.animate(self.opening_cinematic, dt,  20)
                 self.camera.moveX(self.speedX, dt)
                 self.camera.moveY(-self.speedY, dt)
                 if self.introduction_sound.channel.get_busy() == False:
@@ -74,7 +74,7 @@ class Scene_1(object):
                     if self.introduction2_sound.channel.get_busy() == False:
                         self.speedX = 0
                         self.speedY = 0
-                        self.glitch2.animate(self.opening_cinematic, 5, False)
+                        self.glitch2.animate(self.opening_cinematic, dt, 5, False)
                         self.opening_glitch2_sound.play()
                         if self.glitch2.isBlit == False:
                             self.scene_finished = True

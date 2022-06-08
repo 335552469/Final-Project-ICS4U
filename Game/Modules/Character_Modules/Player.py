@@ -1,5 +1,5 @@
 import pygame
-from Game.Modules.System_Modules.SpriteHandler import SpriteHandler
+from Modules.System_Modules.SpriteHandler import SpriteHandler
 
 # This class is specifically used to modify the abilities of the player/main character
 class Player(object):
@@ -59,7 +59,7 @@ class Player(object):
             self.sprite_directions[self.index].count_speed = 0 # Player Stops
             self.sprite_directions[self.index].index = 1 # The sprite animation stops at the static sprite
 
-        self.sprite_directions[self.index].animate(surface, 20) # Blits the walk -- dependant on index
+        self.sprite_directions[self.index].animate(surface, dt, 20) # Blits the walk -- dependant on index
         pygame.draw.rect(surface, (255, 0, 0), (self.sprite_directions[self.index].coords[0], self.sprite_directions[self.index].coords[1], self.sprite_directions[self.index].image.get_width()*self.scale//16, self.sprite_directions[self.index].image.get_height()*self.scale//16), 2) # draws the hitbox
 
     # Function will be used to create the collisions
