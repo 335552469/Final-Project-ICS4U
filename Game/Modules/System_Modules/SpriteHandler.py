@@ -1,6 +1,6 @@
 import pygame
 from math import gcd
-from Game.Modules.System_Modules.CameraClass import Camera
+from Modules.System_Modules.CameraClass import Camera
 
 pygame.init()
 
@@ -66,9 +66,9 @@ class SpriteHandler(Image):
         self.update(rate, dt, show) # runs the update function
 
         # Rescales the image
-        bigger = pygame.transform.scale(self.image, (self.scale*(self.image.get_width()//gcd(self.image.get_width(), 
+        self.bigger = pygame.transform.scale(self.image, (self.scale*(self.image.get_width()//gcd(self.image.get_width(), 
                                         self.image.get_height())), self.scale*(self.image.get_height()//gcd(self.image.get_width(), 
                                         self.image.get_height()))))
         # Draws the animation
         if self.isBlit == True:
-            surface.blit(bigger, (self.coords[0], self.coords[1]))
+            surface.blit(self.bigger, (self.coords[0], self.coords[1]))

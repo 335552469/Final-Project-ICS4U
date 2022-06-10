@@ -49,7 +49,7 @@ class Scene_1(object):
                     self.opening_glitch_bool = True
                     
             if self.opening_glitch_bool == True:
-                self.glitch.animate(self.Opening_Glitch_Surface, 10, False)
+                self.glitch.animate(self.Opening_Glitch_Surface, dt, 10, False)
                 surface.blit(self.Opening_Glitch_Surface, (0, 0))
                 self.opening_glitch_sound.play()
                 if self.glitch.isBlit == False:
