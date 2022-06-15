@@ -87,12 +87,9 @@ class NPC(object):
 
         self.npcImage = ImageHandler(300, 250, 25, f"Assets\\Characters\\Character_2\\{filename}", filetype, camera)
         self.arrowX = -5
-        self.arrow = ImageHandler(self.arrowX, 315, 110, f"Assets\\textBox\\smallArrow", "png", camera)
-
-        self.hit_boxW = 50
-        self.hit_boxH = 75
-
+        self.arrow = ImageHandler(self.arrowX, 310, 115, f"Assets\\textBox\\smallArrow", "png", camera)
         self.arrowBool = False
+
         self.check = False
         self.num = 0
         
@@ -112,15 +109,8 @@ class NPC(object):
         self.ans.type(surface, rate=0)
         self.arrow.blit(surface)
 
-        if keyboard.is_pressed("a"):
-            self.arrowBool = True
-        if keyboard.is_pressed("d"):
-            self.arrowBool = False
-
-        if self.arrowBool is True:
-            self.arrowX = -3
-        if self.arrowBool is False:
-            self.arrowX = 485
+    def moveArrow(self, surface, x, camera):
+        self.arrow = self.arrow = ImageHandler(self.arrowX, 310, 115, f"Assets\\textBox\\smallArrow", "png", camera)
     
     def interaction(self, surface):
         player.speedX = 0
